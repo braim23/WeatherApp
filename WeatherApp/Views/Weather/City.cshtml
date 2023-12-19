@@ -5,13 +5,13 @@
 }
 <div class="container">
     <div class="container">
-        <div class="form-group col-md-offset-3 col-md-5">
+        <div class="form-group col-md-12 col-md-5">
             <h2>Forecast for the selected city</h2>
             <label asp-for="Name"></label>
             <span class="badge alert-primary">@Model.Name</span> <br />
             
             <label asp-for="Temperature"></label>
-            <span class="badge alert-primary">@Model.Temperature°</span> <br />
+            <span class="badge alert-primary">@Math.Round(Model.Temperature)°</span> <br />
 
             <label asp-for="Humidity"></label>
             <span class="badge alert-primary">@Model.Humidity</span> <br />
