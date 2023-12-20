@@ -1,8 +1,48 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model WeatherApp.Models.City
+
+@{
+    ViewData["Title"] = "SearchByCity";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="container">
+    <form method="post">
+        <div class="container">
+            <h2>Search by city name</h2>
+            <div>
+                <input asp-for="CityName" class="form-control" placeholder="Enter the city name" />
+                <button asp-controller="Weather" asp-action="SearchByCity" class="btn btn-outline-primary">
+                    Search
+                </button>
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+        </div>
+    </form>
+
+
+    <div class="form-group col-md-12 col-md-5">
+        <h2>Forecast for the selected city</h2>
+        <label asp-for="Name"></label>
+        <span class="badge alert-primary">@Model.Name</span> <br />
+
+        <label asp-for="Temperature"></label>
+        <span class="badge alert-primary">@Math.Round(Model.Temperature)°</span> <br />
+
+        <label asp-for="Humidity"></label>
+        <span class="badge alert-primary">@Model.Humidity</span> <br />
+
+        <label asp-for="Pressure"></label>
+        <span class="badge alert-primary">@Model.Pressure Hpa</span> <br />
+
+        <label asp-for="Wind"></label>
+        <span class="badge alert-primary">@Model.Wind km/h</span> <br />
+
+        <label asp-for="Weather"></label>
+        <span class="badge alert-primary">@Model.Weather</span> <br />
+
+        <form method="get">
+            <button asp-controller="Weather" asp-action="SearchByCity" class="btn btn-primary">Go back</button>
+        </form>
+    </div>
+
 </div>

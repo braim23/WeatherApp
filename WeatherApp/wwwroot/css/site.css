@@ -4,7 +4,8 @@ html {
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 22px;
+
   }
 }
 
@@ -15,4 +16,27 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+nav {
+    background-color: #1C9CF6;
+}
+
+.background {
+    background-color: #19C3FB;
+}
+
+:root {
+    --bs-body-bg: #19C3FB;
+    --bs-body-font-family: 'Euclid Circular B', sans-serif;
+    --bs-body-font-weight: 700;
+    --bs-body-color: white;
+}
+
+::placeholder {
+    color: white !important;
+}
+
+.font-small{
+    font-size: 16px;
 }

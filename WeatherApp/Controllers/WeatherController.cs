@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 using WeatherApp.Models;
 using WeatherApp.OpenWeatherMapModel;
 using WeatherApp.Repositories;
@@ -15,38 +16,49 @@ public class WeatherController : Controller
     }
 
     [HttpGet]
-    public IActionResult SearchByCity()
+    public IActionResult SearchByCity(string? city)
     {
-        var viewModel = new SearchByCity();
-        return View(viewModel);
-    }
-    [HttpPost]
-    public IActionResult SearchByCity(SearchByCity model)
-    {
-        if (ModelState.IsValid)
+        if(city != null)
         {
-            return RedirectToAction("City", "Weather", new { City = model.CityName });
+            WeatherResponse weatherResponse = _weatherRepository.GetForecast(city);
+            City viewModel = new City();
+            if (weatherResponse != null)
+            {
+                viewModel.Name = weatherResponse.Name;
+                viewModel.Temperature = weatherResponse.Main.Temp;
+                viewModel.Humidity = weatherResponse.Main.Humidity;
+                viewModel.Pressure = weatherResponse.Main.Pressure;
+                viewModel.Weather = weatherResponse.Weather[0].Main;
+                viewModel.Wind = weatherResponse.Wind.Speed;
+
+            }
+            return View(viewModel);
         }
         else
         {
-            return View(model);
-        }
-    }
-    [HttpGet]
-    public IActionResult City(string city)
-    {
-        WeatherResponse weatherResponse = _weatherRepository.GetForecast(city);
-        City viewModel = new City();
-        if(weatherResponse != null)
-        {
+            WeatherResponse weatherResponse = _weatherRepository.GetForecast("Mecca");
+            City viewModel = new City();
             viewModel.Name = weatherResponse.Name;
             viewModel.Temperature = weatherResponse.Main.Temp;
             viewModel.Humidity = weatherResponse.Main.Humidity;
             viewModel.Pressure = weatherResponse.Main.Pressure;
             viewModel.Weather = weatherResponse.Weather[0].Main;
             viewModel.Wind = weatherResponse.Wind.Speed;
-
+            return View(viewModel);
         }
-        return View(viewModel);
+        
     }
+    [HttpPost]
+    public IActionResult SearchByCity(SearchByCity model)
+    {
+        if (ModelState.IsValid)
+        {
+            return RedirectToAction("SearchByCity", "Weather", new { City = model.CityName });
+        }
+        else
+        {
+            return View(model);
+        }
+    }
+    
 }

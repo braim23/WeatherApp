@@ -15,14 +15,10 @@ namespace WeatherApp.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("SearchByCity", "Weather");
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

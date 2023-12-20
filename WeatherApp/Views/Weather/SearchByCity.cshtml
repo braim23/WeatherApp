@@ -1,4 +1,4 @@
-﻿@model WeatherApp.Models.SearchByCity
+﻿@model WeatherApp.Models.City
 
 @{
     ViewData["Title"] = "SearchByCity";
@@ -8,15 +8,39 @@
 <div class="container">
     <form method="post">
         <div class="container">
-            <h2>Search by city name</h2>
-            <div>
-                <input asp-for="CityName" class="form-control" placeholder="Enter the city name" />
-                <button asp-controller="Weather" asp-action="SearchByCity" class="btn btn-outline-primary">
+            <h2 class="text-center text-white">Search by city name</h2>
+            <div class="text-center">
+                <input asp-for="CityName" class="form-control background text-center btn-white border-1 rounded-4 mt-1" placeholder="Enter the city name" />
+                <button asp-controller="Weather" asp-action="SearchByCity" class="btn btn-light mt-1 font-small">
                     Search
                 </button>
                 <span asp-validation-for="CityName" class="text-danger"></span>
             </div>
         </div>
     </form>
+
+
+    <div class="form-group col-md-12 col-md-5 mt-5 card background border-0">
+        <h2 class="text-center text-white">Forecast for the selected city</h2>
+        <div>
+            <label class="float-start ms-5" asp-for="Name"></label>
+            <span class="badge alert-heading float-end me-5">@Model.Name</span> <br />
+
+            <label class="float-start ms-5" asp-for="Temperature"></label>
+            <span class="badge alert-heading float-end me-5">@Math.Round(Model.Temperature)°</span> <br />
+
+            <label class="float-start ms-5" asp-for="Humidity"></label>
+            <span class="badge alert-heading float-end me-5">@Model.Humidity</span> <br />
+
+            <label class="float-start ms-5" asp-for="Pressure"></label>
+            <span class="badge alert-heading float-end me-5">@Model.Pressure Hpa</span> <br />
+
+            <label class="float-start ms-5" asp-for="Wind"></label>
+            <span class="badge alert-heading float-end me-5">@Model.Wind km/h</span> <br />
+
+            <label class="float-start ms-5" asp-for="Weather"></label>
+            <span class="badge alert-heading float-end me-5">@Model.Weather</span> <br />
+        </div>
+    </div>
     
 </div>
